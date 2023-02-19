@@ -12,6 +12,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { useCallback, useEffect, useState } from "react";
 import ReactSelect from "react-select";
+import Langs from "../utils/langs";
 
 export default function Home() {
   const {
@@ -31,6 +32,10 @@ export default function Home() {
     if (e?.value) {
       setSelectedLang({
         language: e?.value,
+      });
+    } else {
+      setSelectedLang({
+        language: "en-US",
       });
     }
   }, []);
@@ -54,19 +59,12 @@ export default function Home() {
       setError("Sorry, I need microphone to talk with you");
     }
 
-    const AllLangs =
-      typeof window === "undefined"
-        ? global.speechSynthesis?.getVoices()
-        : window.speechSynthesis?.getVoices();
-    const uniqueLangs: any = Array.from(new Set(AllLangs.map((l) => l.lang)));
-    const uniqueLangsOptions = uniqueLangs?.map((v: string) => {
+    const uniqueLangsOptions: any = Langs?.map((v: string) => {
       return {
         label: v,
         value: v,
       };
     });
-
-    console.log(uniqueLangsOptions);
 
     setUniqueLangsOptions(uniqueLangsOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps

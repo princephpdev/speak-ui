@@ -1,0 +1,3 @@
+const Langs = ['en-IN', 'en-US', 'it-IT', 'sv-SE', 'fr-CA', 'ms-MY', 'de-DE', 'he-IL', 'id-ID', 'en-GB', 'bg-BG', 'es-ES', 'es-MX', 'fi-FI', 'fr-FR', 'pt-BR', 'nl-BE', 'ro-RO', 'pt-PT', 'th-TH', 'en-AU', 'ja-JP', 'hr-HR', 'sk-SK', 'hi-IN', 'uk-UA', 'vi-VN', 'ar-001', 'hu-HU', 'zh-TW', 'el-GR', 'ru-RU', 'en-IE', 'ca-ES', 'nb-NO', 'da-DK', 'zh-HK', 'en-ZA', 'zh-CN', 'nl-NL', 'tr-TR', 'ko-KR', 'pl-PL', 'cs-CZ', 'es-US']
+
+export default Langs
