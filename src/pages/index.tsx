@@ -1,13 +1,6 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
-import {
-  Container,
-  Heading,
-  IconButton,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+import { Container, Heading, IconButton, useToast } from "@chakra-ui/react";
 import {
   FaGithubAlt,
   FaMicrophone,
@@ -17,9 +10,8 @@ import {
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { useEffect, useState } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useCallback, useEffect, useState } from "react";
+import ReactSelect from "react-select";
 
 export default function Home() {
   const {
@@ -30,8 +22,18 @@ export default function Home() {
     isMicrophoneAvailable,
   } = useSpeechRecognition();
   const toast = useToast();
+  const [uniqueLangsOptions, setUniqueLangsOptions] = useState([]);
 
   const [error, setError] = useState("");
+  const [selectedLan, setSelectedLang] = useState({ language: "en-US" });
+
+  const updateLang = useCallback((e: any) => {
+    if (e?.value) {
+      setSelectedLang({
+        language: e?.value,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
@@ -51,6 +53,22 @@ export default function Home() {
       });
       setError("Sorry, I need microphone to talk with you");
     }
+
+    const AllLangs =
+      typeof window === "undefined"
+        ? global.speechSynthesis?.getVoices()
+        : window.speechSynthesis?.getVoices();
+    const uniqueLangs: any = Array.from(new Set(AllLangs.map((l) => l.lang)));
+    const uniqueLangsOptions = uniqueLangs?.map((v: string) => {
+      return {
+        label: v,
+        value: v,
+      };
+    });
+
+    console.log(uniqueLangsOptions);
+
+    setUniqueLangsOptions(uniqueLangsOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [browserSupportsSpeechRecognition, isMicrophoneAvailable]);
 
@@ -79,12 +97,19 @@ export default function Home() {
           </div>
         </div>
 
+        <ReactSelect
+          options={uniqueLangsOptions}
+          placeholder="Select Your Language"
+          onChange={updateLang}
+          isClearable
+        />
+
         <div className={styles.center}>
           <IconButton
             aria-label="Speak Something new"
             icon={listening ? <FaMicrophoneAlt /> : <FaMicrophone />}
             size="lg"
-            onClick={SpeechRecognition.startListening}
+            onClick={() => SpeechRecognition.startListening(selectedLan)}
             colorScheme={listening ? "red" : "gray"}
             isDisabled={error ? true : false}
           />
@@ -93,8 +118,8 @@ export default function Home() {
           </Heading>
         </div>
 
-        <Container maxW="2xl" pb="16" centerContent>
-          <Heading>{transcript}</Heading>
+        <Container maxW="2xl" pb="24" centerContent>
+          <Heading size="xl">{transcript}</Heading>
           <IconButton
             variant="ghost"
             aria-label="Clear My Speech"
