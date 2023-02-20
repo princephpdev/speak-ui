@@ -1,6 +1,17 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import { Container, Heading, IconButton, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Center,
+  Container,
+  Flex,
+  Heading,
+  Highlight,
+  IconButton,
+  SimpleGrid,
+  Spacer,
+  Text,
   useToast,
 } from "@chakra-ui/react";
 import {
