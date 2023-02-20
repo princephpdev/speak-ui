@@ -10,9 +10,11 @@ const openai = new OpenAIApi(configuration);
 
 /**
  * https://platform.openai.com/docs/api-reference/images/create?lang=node.js
- * @size 256x256, 512x512, 1024x1024
- * @n between 1 to 10
- * @prompt The maximum length is 1000 characters.
+ * @param size 256x256, 512x512, 1024x1024 (optional)
+ * @param n between 1 to 10 (optional)
+ * @param prompt The maximum length is 1000 characters.
+ * @param response_format url, b64_json (optional)
+ * @param user unique_user_id (optional)
  * @param _req
  * @param res
  */
