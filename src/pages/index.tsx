@@ -202,7 +202,7 @@ export default function Home() {
             <i>Try saying : </i>
             <b>Create image of -</b> And your description
           </Text>
-          <Text>Example - Create image of a mountain</Text>
+          <Text>Example - Create image of a polar bear eating pizza with hot coffee</Text>
           <Container maxW="4xl" py="8" centerContent>
             <Heading size="lg">{transcript}</Heading>
             <IconButton
