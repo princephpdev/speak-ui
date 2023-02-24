@@ -51,6 +51,19 @@ export default function Home() {
   const [aiImages, setAIImages] = useState([]);
   const [loadingImage, setLoadingImage] = useState(false);
 
+  const speakYourText = (text: string, voiceNo = 144) => {
+    let speech = new SpeechSynthesisUtterance();
+    const synth = window.speechSynthesis;
+    let voices = synth.getVoices();
+    speech.text = text ?? "";
+    // speech.volume = 1;
+    // speech.rate = 1;
+    // speech.pitch = 1;
+    // 10 , 135, 108, 140, 144
+    speech.voice = voices[voiceNo];
+    synth.speak(speech);
+  };
+
   // const updateLang = useCallback((e: any) => {
   //   if (e?.value) {
   //     setSelectedLang({
@@ -65,6 +78,9 @@ export default function Home() {
 
   const generateImage = async () => {
     setLoadingImage(true);
+    speakYourText(
+      "Generating image for you.... It is quick but may take time, we can have a coffee"
+    );
     try {
       const getGeneratedImageResponse = async () => {
         return await (
@@ -80,6 +96,7 @@ export default function Home() {
       };
 
       const getGeneratedImageData = await getGeneratedImageResponse();
+      speakYourText("It is almost done... I am updating image for you");
       setAIImages(getGeneratedImageData?.data);
       toast({
         title: "Image Generated Successfully",
@@ -88,6 +105,7 @@ export default function Home() {
       });
       setError("");
       resetMessageAndTranscript();
+      speakYourText("Do you want to generate another?");
     } catch (error) {
       console.log(error);
       toast({
@@ -96,6 +114,10 @@ export default function Home() {
         isClosable: true,
       });
       setError("Sorry, Something went wrong!! we are trying to fix it");
+      speakYourText(
+        "Sorry, Something went wrong!! we are trying to fix it",
+        135
+      );
     }
     setLoadingImage(false);
   };
@@ -113,6 +135,10 @@ export default function Home() {
         isClosable: true,
       });
       setError("Sorry, Your Browser does not support speech recognition");
+      speakYourText(
+        "Sorry, Your Browser does not support speech recognition",
+        135
+      );
     }
 
     if (!isMicrophoneAvailable) {
@@ -122,18 +148,31 @@ export default function Home() {
         isClosable: true,
       });
       setError("Sorry, I need microphone to talk with you");
+      speakYourText("Sorry, I need microphone to talk with you", 135);
     }
 
-    const uniqueLangsOptions: any = Langs?.map((v: string) => {
-      return {
-        label: v,
-        value: v,
-      };
-    });
+    // const uniqueLangsOptions: any = Langs?.map((v: string) => {
+    //   return {
+    //     label: v,
+    //     value: v,
+    //   };
+    // });
 
-    setUniqueLangsOptions(uniqueLangsOptions);
+    // setUniqueLangsOptions(uniqueLangsOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [browserSupportsSpeechRecognition, isMicrophoneAvailable]);
+
+  useEffect(() => {
+    if (message) {
+      speakYourText(
+        `Ok, You want to generate image of : ${message}?  If So, then Press Generate`
+      );
+    }
+  }, [message]);
+
+  useEffect(() => {
+    speakYourText("Welcome to the Voice Over App", 140);
+  }, []);
 
   return (
     <>
@@ -202,7 +241,9 @@ export default function Home() {
             <i>Try saying : </i>
             <b>Create image of -</b> And your description
           </Text>
-          <Text>Example - Create image of a polar bear eating pizza with hot coffee</Text>
+          <Text>
+            Example - Create image of a polar bear eating pizza with hot coffee
+          </Text>
           <Container maxW="4xl" py="8" centerContent>
             <Heading size="lg">{transcript}</Heading>
             <IconButton
