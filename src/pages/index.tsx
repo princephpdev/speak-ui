@@ -171,7 +171,9 @@ export default function Home() {
   }, [message]);
 
   useEffect(() => {
-    speakYourText("Welcome to the Voice Over App", 140);
+    setTimeout(() => {
+      speakYourText("Welcome to the Voice Over App", 140);
+    }, 1000);
   }, []);
 
   return (
