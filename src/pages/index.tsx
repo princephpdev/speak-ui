@@ -3,6 +3,9 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
   Center,
   Container,
   Flex,
@@ -15,10 +18,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import {
+  FaDownload,
   FaGithubAlt,
   FaMicrophone,
   FaMicrophoneAlt,
   FaRegTimesCircle,
+  FaShare,
 } from "react-icons/fa";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -59,7 +64,7 @@ export default function Home() {
     // speech.volume = 1;
     // speech.rate = 1;
     // speech.pitch = 1;
-    // 10 , 135, 108, 140, 144
+    // 135, 108, 140, 144
     speech.voice = voices[voiceNo];
     synth.speak(speech);
   };
@@ -76,11 +81,29 @@ export default function Home() {
   //   }
   // }, []);
 
+  const generateJoke = async () => {
+    try {
+      const jokeURL = "https://api.chucknorris.io/jokes/random";
+      const res = await fetch(jokeURL);
+      const joke = await res.json();
+      const replaceChunkToVinod: string = joke?.value?.replace(
+        /Chuck Norris/g,
+        "Vinod"
+      );
+      return replaceChunkToVinod;
+    } catch (error) {
+      console.log(error);
+      return "Ohho.. No more jokes left for the day";
+    }
+  };
+
   const generateImage = async () => {
     setLoadingImage(true);
-    speakYourText(
-      "Generating image for you.... It is quick but may take time, we can have a coffee"
-    );
+    speakYourText("Generating image for you....");
+    speakYourText(`It is quick but may take time, sharing a Joke with you`);
+    const newJoke = await generateJoke();
+    speakYourText(newJoke);
+
     try {
       const getGeneratedImageResponse = async () => {
         return await (
@@ -125,6 +148,15 @@ export default function Home() {
   const resetMessageAndTranscript = () => {
     resetTranscript();
     setMessage("");
+  };
+
+  const onDownload = (linkURL: string) => {
+    const link = document.createElement("a");
+    link.download = `download.png`;
+    link.href = linkURL;
+    link.target = "_blank";
+    link.download;
+    link.click();
   };
 
   useEffect(() => {
@@ -285,14 +317,47 @@ export default function Home() {
             <SimpleGrid minChildWidth="256px" py="6" spacing="40px">
               {aiImages?.map((aiImage: any, index) => {
                 return (
-                  <div key={index}>
-                    <Image
-                      src={`data:image/png;base64,${aiImage?.b64_json}`}
-                      alt="Prince K - VoiceOver"
-                      width="512"
-                      height="512"
-                    />
-                  </div>
+                  <Card key={index}>
+                    <CardBody>
+                      <Image
+                        src={
+                          aiImage?.b64_json
+                            ? `data:image/png;base64,${aiImage?.b64_json}`
+                            : aiImage?.url
+                        }
+                        alt="Prince K - VoiceOver"
+                        width="256"
+                        height="256"
+                      />
+                    </CardBody>
+                    <CardFooter
+                      justify="space-between"
+                      flexWrap="wrap"
+                      sx={{
+                        "& > button": {
+                          minW: "136px",
+                        },
+                      }}
+                    >
+                      <Button
+                        flex="1"
+                        variant="ghost"
+                        leftIcon={<FaDownload />}
+                        onClick={() =>
+                          onDownload(
+                            aiImage?.b64_json
+                              ? `data:image/png;base64,${aiImage?.b64_json}`
+                              : aiImage?.url
+                          )
+                        }
+                      >
+                        Download
+                      </Button>
+                      <Button flex="1" variant="ghost" leftIcon={<FaShare />}>
+                        Share
+                      </Button>
+                    </CardFooter>
+                  </Card>
                 );
               })}
             </SimpleGrid>
