@@ -7,6 +7,7 @@ import {
   CardFooter,
   Center,
   Container,
+  Divider,
   Heading,
   Highlight,
   IconButton,
@@ -47,6 +48,35 @@ const VoiceImageAi = () => {
   const [aiImages, setAIImages] = useState([]);
   const [loadingImage, setLoadingImage] = useState(false);
   const toast = useToast();
+
+  const overviewList = [
+    {
+      id: 1,
+      label: "Click on Let's Talk mic icon",
+      subLabel: "Once clicked, it will start listening",
+    },
+    {
+      id: 2,
+      label: "Tell what image you want to generate",
+      subLabel: "Start with - Create Image of -  and your description",
+    },
+    {
+      id: 3,
+      label: "Listen and read the description",
+      subLabel:
+        "Our AI will read your image description, Check if it's correct as you said",
+    },
+    {
+      id: 4,
+      label: "Generate Image",
+      subLabel: "If Everything looks okay, click on generate your image",
+    },
+    {
+      id: 5,
+      label: "Download and Share",
+      subLabel: "You can download and share the image as well",
+    },
+  ];
 
   const speakYourText = (text: string, voiceNo = 144) => {
     let speech = new SpeechSynthesisUtterance();
@@ -216,7 +246,9 @@ const VoiceImageAi = () => {
           <Text>
             Example - Create image of a polar bear eating pizza with hot coffee
           </Text>
-          <Heading size="lg">{transcript}</Heading>
+          <Heading py="4" size="lg">
+            {transcript}
+          </Heading>
           <IconButton
             variant="ghost"
             aria-label="Clear My Speech"
@@ -229,7 +261,7 @@ const VoiceImageAi = () => {
         </Container>
       </Box>
 
-      <Container maxW={"4xl"}>
+      <Container maxW={"5xl"} centerContent>
         {message && (
           <Heading size="md" py="4" lineHeight="tall">
             <Highlight
@@ -250,11 +282,13 @@ const VoiceImageAi = () => {
         >
           Generate Image
         </Button>
+      </Container>
+      <Container maxW={"5xl"}>
         {aiImages?.length > 0 && (
           <SimpleGrid minChildWidth="256px" py="6" spacing="40px">
             {aiImages?.map((aiImage: any, index) => {
               return (
-                <Card key={index} align="center">
+                <Card key={index} align="center" variant={"outline"}>
                   <CardBody>
                     <Image
                       src={
@@ -300,8 +334,13 @@ const VoiceImageAi = () => {
           </SimpleGrid>
         )}
       </Container>
-
-      <OverviewSection />
+      <Box py={"16"}>
+        <Divider />
+        <OverviewSection
+          imageURL="/assets/images/layouts/project-voiceai.png"
+          workList={overviewList}
+        />
+      </Box>
     </>
   );
 };

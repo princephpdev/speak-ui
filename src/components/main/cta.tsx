@@ -7,6 +7,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { Link as UILink } from "@chakra-ui/react";
+import { FaCoffee, FaGithub } from "react-icons/fa";
 
 const CTA = () => {
   return (
@@ -30,7 +32,7 @@ const Banner = () => {
     >
       <Box>
         <chakra.h1 fontSize="4xl" lineHeight={1.2} fontWeight="bold">
-          Ready to get started?
+          Want to contribute?
         </chakra.h1>
         <chakra.h2
           fontSize="2xl"
@@ -49,29 +51,29 @@ const Banner = () => {
       >
         <Button
           as={Link}
-          href="/voice-image-ai"
-          color="white"
-          variant="solid"
+          href="https://www.buymeacoffee.com/princek"
           size="lg"
           rounded="md"
           mb={{ base: 2, sm: 0 }}
+          bg={useColorModeValue("orange.200", "orange.600")}
+          _hover={{ bg: useColorModeValue("orange.300", "orange.500") }}
           lineHeight={1}
-          bgGradient="linear(to-l, #0ea5e9,#2563eb)"
-          _hover={{ bgGradient: "linear(to-l, #0ea5e9,#2563eb)" }}
+          leftIcon={<FaCoffee />}
         >
-          Get Started
+          Buy me a coffee
         </Button>
         <Button
           as={Link}
-          href="https://www.buymeacoffee.com/princek"
+          href="https://github.com/princephpdev"
           size="lg"
           rounded="md"
           mb={{ base: 2, sm: 0 }}
           bg={useColorModeValue("gray.200", "gray.600")}
           _hover={{ bg: useColorModeValue("gray.300", "gray.500") }}
           lineHeight={1}
+          leftIcon={<FaGithub />}
         >
-          Support Us
+          Github
         </Button>
       </Stack>
     </Stack>

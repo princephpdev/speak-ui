@@ -48,13 +48,13 @@ export default function HomeMain() {
             </Text>
             <br />
             <Text as={"span"} color={"red.400"}>
-              voice over magic!
+              magic over voice!
             </Text>
           </Heading>
           <Text color={"gray.500"}>
-            VoiceOver AI can use your voice to generate image, convert your text
-            to AI Voice, and even speak for your as a human voice. All that is
-            free!
+            VoiceOver AI can generate image on your voice command, convert your
+            text to AI Voice, and even speak for your as a human voice. All that
+            is free!
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}

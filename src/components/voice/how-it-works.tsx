@@ -10,31 +10,18 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-const overviewList = [
-  {
-    id: 1,
-    label: "Login once per day",
-    subLabel: "The process should be quick.",
-  },
-  {
-    id: 2,
-    label: "Do your reviews",
-    subLabel: "Reviews come from previous flashcards that you chose.",
-  },
-  {
-    id: 3,
-    label: "Streak increase",
-    subLabel:
-      "Your streak increases once per day as long as you finish your reviews.",
-  },
-  {
-    id: 4,
-    label: "Choose your lesson",
-    subLabel: "This will add 5 new flashcards to your reviews.",
-  },
-];
+type WorkList = {
+  id: number | string;
+  label: string;
+  subLabel?: string;
+};
 
-const OverviewSection = () => {
+type OverViewProps = {
+  imageURL?: string;
+  workList?: WorkList[];
+};
+
+const OverviewSection = (props: OverViewProps) => {
   return (
     <Container maxW="6xl" py={10}>
       <chakra.h2 fontSize="4xl" fontWeight="bold" textAlign="center" mb={2}>
@@ -52,7 +39,7 @@ const OverviewSection = () => {
           mb={{ base: 5, md: 0 }}
           maxW="md"
         >
-          {overviewList.map((data) => (
+          {props?.workList?.map((data) => (
             <Box key={data.id}>
               <HStack spacing={2}>
                 <Flex
@@ -71,7 +58,7 @@ const OverviewSection = () => {
                 <Text fontSize="xl">{data.label}</Text>
               </HStack>
               <Text fontSize="md" color="gray.500" ml={12}>
-                {data.subLabel}
+                {data?.subLabel}
               </Text>
             </Box>
           ))}
@@ -79,7 +66,7 @@ const OverviewSection = () => {
         <Image
           boxSize={{ base: "auto", md: "lg" }}
           objectFit="contain"
-          src="/assets/images/layouts/project-voiceai.png"
+          src={props?.imageURL}
           rounded="lg"
           alt="Voice Over"
         />
