@@ -1,3 +1,4 @@
+import OverviewSection from "@/components/voice/how-it-works";
 import {
   Box,
   Button,
@@ -299,6 +300,8 @@ const VoiceImageAi = () => {
           </SimpleGrid>
         )}
       </Container>
+
+      <OverviewSection />
     </>
   );
 };

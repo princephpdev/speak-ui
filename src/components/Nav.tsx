@@ -279,19 +279,6 @@ const NAV_ITEMS: Array<NavItem> = [
         subLabel: "Create image of anything in your imagination",
         href: "/voice-image-ai",
       },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
     ],
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
   },
 ];

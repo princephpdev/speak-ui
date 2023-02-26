@@ -36,8 +36,8 @@ const Feature = ({ title, text, icon, link }: FeatureProps) => {
       <Text fontWeight={600}>{title}</Text>
       <Text color={"gray.600"}>{text}</Text>
       {link && (
-        <Link href={link} isExternal>
-          Donate here <FaExternalLinkAlt />
+        <Link href={link} fontSize="sm" color="blue.400" isExternal>
+          Support Our Work
         </Link>
       )}
     </Stack>

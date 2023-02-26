@@ -13,6 +13,7 @@ import {
   IconProps,
   useColorModeValue,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function HomeMain() {
   return (
@@ -60,6 +61,7 @@ export default function HomeMain() {
             direction={{ base: "column", sm: "row" }}
           >
             <Button
+              as={Link}
               rounded={"full"}
               size={"lg"}
               fontWeight={"normal"}
@@ -67,6 +69,7 @@ export default function HomeMain() {
               colorScheme={"red"}
               bg={"red.400"}
               _hover={{ bg: "red.500" }}
+              href="/voice-image-ai"
             >
               Get started
             </Button>

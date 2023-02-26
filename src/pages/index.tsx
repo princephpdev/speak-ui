@@ -1,8 +1,10 @@
 import Head from "next/head";
-import { Container } from "@chakra-ui/react";
+import { Box, Container, Spacer } from "@chakra-ui/react";
 import HomeMain from "@/components/main/home";
 import ThreeColumns from "@/components/main/threeCol";
 import GridBlurredBackdrop from "@/components/main/testimonials";
+import MissionSection from "@/components/main/aboutSection";
+import CTA from "@/components/main/cta";
 
 export default function Home() {
   return (
@@ -15,8 +17,18 @@ export default function Home() {
       </Head>
       <Container maxW={"7xl"} centerContent>
         <HomeMain />
-        <ThreeColumns />
-        <GridBlurredBackdrop />
+        <Box pt="16">
+          <MissionSection />
+        </Box>
+        <Box pt="16">
+          <ThreeColumns />
+        </Box>
+        <Box pt="16">
+          <GridBlurredBackdrop />
+        </Box>
+        <Box py="16">
+          <CTA />
+        </Box>
       </Container>
     </>
   );
